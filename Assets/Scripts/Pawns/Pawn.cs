@@ -4,6 +4,9 @@ using UnityEngine;
 
 public abstract class Pawn : MonoBehaviour
 {
+    //get the movement class so objects can move
+    public Movement mover;
+    
     //keep track of the controller of the pawn
     public Controller control;
 
@@ -21,6 +24,10 @@ public abstract class Pawn : MonoBehaviour
     // Start is called before the first frame update
     public virtual void Start() 
     {
+        //access the methods in movement
+        mover = GetComponent<Movement>();
+        //access the methods in controller
+        control = GetComponent<Controller>();
     }
 
     // Update is called once per frame

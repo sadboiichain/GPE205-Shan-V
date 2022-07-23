@@ -1,4 +1,3 @@
-using System.Threading;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,5 +20,11 @@ public class TankMovement : Movement
         Vector3 moveVector = direction.normalized * speed * Time.deltaTime;
         //use the vector to move the tank through rigidbody
         rigid.MovePosition(rigid.position + moveVector);
+    }
+
+    //function to rotate the tank
+    public override void Rotate(float rSpeed)
+    {
+        transform.Rotate(0f, rSpeed * Time.deltaTime, 0f);
     }
 }

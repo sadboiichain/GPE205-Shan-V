@@ -1,4 +1,3 @@
-using System.ComponentModel;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,26 +31,27 @@ public class PlayerController : Controller
     {
         //TODO: properly edit to get input from players   
 
-        //detecting input for foreward movement (use Input.GetKey)
-        // if (Input.GetKey(moveForwardKey))
-        // {
-        //     pawn.MoveForward;
-        // }
-        // //detecting input for backward movement
-        // if (Input.GetKey(moveBackwardsKey))
-        // {
-        //     pawn.MoveBackward;
-        // }
-        // //detecting input for rotation clockwise
-        // if (Input.GetKey(rotateClockwiseKey))
-        // {
-        //     pawn.RotateClockwise;
-        // }
-        // //detecting input for rotation counter clockwise
-        // if (Input.GetKey(rotateCounterClockwiseKey))
-        // {
-        //     pawn.RotateCounterClockwise;
-        // }
+        // detecting input for foreward movement (use Input.GetKey)
+        if (Input.GetKey(moveForwardKey))
+        {
+            pawn.MoveForward();
+        }
+        //detecting input for backward movement
+        if (Input.GetKey(moveBackwardsKey))
+        {
+            pawn.MoveBackward();
+        }
+        //detecting input for rotation clockwise
+        if (Input.GetKey(rotateClockwiseKey))
+        {
+            Debug.Log("keyPressed");
+            pawn.RotateClockwise();
+        }
+        //detecting input for rotation counter clockwise
+        if (Input.GetKey(rotateCounterClockwiseKey))
+        {
+            pawn.RotateCounterClockwise();
+        }
 
     }
 }

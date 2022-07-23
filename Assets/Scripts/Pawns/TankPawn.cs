@@ -22,25 +22,25 @@ public class TankPawn : Pawn
     //set up controls for moving the tank forwards, current code temporary
     public override void MoveForward()
     {
-        Debug.Log("moving forward");
+        mover.Move(transform.forward, moveSpeed);
     }
 
     //set up controls for moving tank backwards, current code temporary
     public override void MoveBackward()
     {
-        Debug.Log("moving back");
+        mover.Move(transform.forward, -moveSpeed);
     }
 
     //set up controls for rotating the tank clockwise (to the right), current code temporary
     public override void RotateClockwise()
     {
-        Debug.Log("turning clockwise");
+        mover.Rotate(turnSpeed);
     }
 
     //set up controls for rotating the tank counter clockwise (to the left), current code temporary
     public override void RotateCounterClockwise()
     {
-        Debug.Log("turning counterclockwise");
+        mover.Rotate(-turnSpeed); 
     }
 
 }
