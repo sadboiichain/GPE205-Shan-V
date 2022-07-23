@@ -9,4 +9,6 @@ public abstract class Movement : MonoBehaviour
 
     //the outline for the move function, uses a vector for direction and a float to control speed.
     public abstract void Move(Vector3 direction, float speed);
+    //the function to rotate the object
+    public abstract void Rotate(float rSpeed);
 }
