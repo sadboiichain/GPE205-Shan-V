@@ -5,18 +5,20 @@ using UnityEngine;
 public abstract class Controller : MonoBehaviour
 {
     //variable to hold the pawn class
-    public Pawn pawn;
+    public Pawn _pawn;
 
     // Start is called before the first frame update
     public virtual void Start()
     { 
+        
         //access the information in pawns
-        pawn = GetComponent<Pawn>();
+        _pawn = _pawn.GetComponent<Pawn>();
     }
 
     // Update is called once per frame
     public virtual void Update()
     {
+
     }
 
 }

@@ -14,6 +14,10 @@ public abstract class Pawn : MonoBehaviour
     public float moveSpeed;
     //variable for turn speed
     public float turnSpeed;
+    
+public void test(){
+    Debug.Log("test complete");
+}
 
     //abstract variables so each class can adjust
     public abstract void MoveForward();
@@ -26,8 +30,6 @@ public abstract class Pawn : MonoBehaviour
     {
         //access the methods in movement
         mover = GetComponent<Movement>();
-        //access the methods in controller
-        control = GetComponent<Controller>();
     }
 
     // Update is called once per frame
