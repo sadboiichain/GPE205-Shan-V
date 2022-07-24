@@ -15,9 +15,6 @@ public abstract class Pawn : MonoBehaviour
     //variable for turn speed
     public float turnSpeed;
     
-public void test(){
-    Debug.Log("test complete");
-}
 
     //abstract variables so each class can adjust
     public abstract void MoveForward();

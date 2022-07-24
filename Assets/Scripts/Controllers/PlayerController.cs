@@ -50,22 +50,22 @@ public class PlayerController : Controller
         // detecting input for foreward movement (use Input.GetKey)
         if (Input.GetKey(moveForwardKey))
         {
-            _pawn.MoveForward();
+            pawn.MoveForward();
         }
         //detecting input for backward movement
         if (Input.GetKey(moveBackwardsKey))
         {
-            _pawn.MoveBackward();
+            pawn.MoveBackward();
         }
         //detecting input for rotation clockwise
         if (Input.GetKey(rotateClockwiseKey))
         {
-            _pawn.RotateClockwise();
+            pawn.RotateClockwise();
         }
         //detecting input for rotation counter clockwise
         if (Input.GetKey(rotateCounterClockwiseKey))
         {
-            _pawn.RotateCounterClockwise();
+            pawn.RotateCounterClockwise();
         }
 
     }

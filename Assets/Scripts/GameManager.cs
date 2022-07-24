@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
 
     //list of players
     public List<PlayerController> players;
+    
 
     //Use Awake(); to do smething when the object is created, before Start(); can run
     private void Awake()
@@ -33,7 +34,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         //temp code, so the player is spawned as the game manager starts
-        SpawnPlayer();
+        // SpawnPlayer();
     }
 
     public void SpawnPlayer()
