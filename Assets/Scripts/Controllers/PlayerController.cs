@@ -15,7 +15,17 @@ public class PlayerController : Controller
     // Start is called before the first frame update
     public override void Start()
     {   
-        
+        //for the gameManager to add/check the list of players
+        //if there is a game manager
+        if(GameManager.instance != null)
+        {
+            //if the player list exists
+            if(GameManager.instance.players != null)
+            {   //add to the player list
+                GameManager.instance.players.Add(this);
+            }
+        }
+
         //run the parent class start function
         base.Start();
 
@@ -58,5 +68,17 @@ public class PlayerController : Controller
             _pawn.RotateCounterClockwise();
         }
 
+    }
+
+    //remove from game manager if it exists
+    public void OnDestroy()
+    {
+        if(GameManager.instance != null)
+        {
+            if(GameManager.instance.players != null)
+            {   //remove from player list
+                GameManager.instance.players.Remove(this);
+            }
+        }
     }
 }
