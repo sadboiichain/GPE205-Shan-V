@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
        Pawn newPawn = newPawnObj.GetComponent<Pawn>();
 
        //connect the new objects
-       newController._pawn = newPawn;
+       newController.pawn = newPawn;
 
     }
 

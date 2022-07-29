@@ -2,17 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Shooter : MonoBehaviour
+public abstract class Shooter : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    //
+    public abstract void Start();
+    public abstract void Update();
+    //needs a bullet prefab, fireForce(speed?), damage number, and bullet life(how long the bullet can travel)
+    public abstract void Shoot(gameObject bulletPrefab, float fireForce, float damageDone, float lifespan);
 }
