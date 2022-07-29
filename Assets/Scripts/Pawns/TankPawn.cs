@@ -4,12 +4,17 @@ using UnityEngine;
 
 public class TankPawn : Pawn
 {
+    //timer variable
+    private float timeUntilNextEvent;
 
     // Start is called before the first frame update
     public override void Start()
     {
         //no change needed, so call the base function (base."function name")
         base.Start();
+
+        //set up timer
+        timeUntilNextEvent = 0;
     }
 
     // Update is called once per frame
@@ -17,6 +22,10 @@ public class TankPawn : Pawn
     {
          //no change needed, so call the base function (base."function name")
         base.Update();
+
+        //timer code
+        timeUntilNextEvent -= Time.deltaTime;
+
     }
 
     //set up controls for moving the tank forwards, current code temporary
@@ -43,4 +52,15 @@ public class TankPawn : Pawn
         mover.Rotate(-turnSpeed); 
     }
 
+    //set up the shooting function so the controller can call it
+    public override void Shoot()
+    {
+        if (timeUntilNextEvent <= 0)
+        {
+            shooter.Shoot(bulletPrefab, fireForce, damageDone, lifespan);
+
+            timeUntilNextEvent = fireRate;
+        }
+
+    }
 }

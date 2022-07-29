@@ -53,7 +53,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 591965de7d988d44099fa44ef5ffdbde, type: 3}
       propertyPath: m_Name
-      value: UATank
+      value: UATank Prefab
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 591965de7d988d44099fa44ef5ffdbde, type: 3}
@@ -106,8 +106,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mover: {fileID: 578607190}
   control: {fileID: 0}
+  shooter: {fileID: 0}
   moveSpeed: 5
   turnSpeed: 45
+  bulletPrefab: {fileID: 6803549903664184631, guid: d7fb20a6ae2909c4a9e9c27e6dbe355d, type: 3}
+  fireForce: 0
+  damageDone: 0
+  lifespan: 0
 --- !u!114 &578607190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,3 +125,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 485ecfebae9c52d46a2a7dfa94c2e4cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3553664244553884978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2326800101180165955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ba61eb7e847e8a4fb1d7ff97a6052ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firepointTransform: {fileID: 0}
+--- !u!114 &8982699822209087295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2326800101180165955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e57d238608a9aec43a04330d90c1eea4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 10
+  currentHealth: 0

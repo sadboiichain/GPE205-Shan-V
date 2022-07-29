@@ -44,8 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 545ac9a5dfd3f0e4faa08d0506400450, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pawn: {fileID: 0}
+  pawn: {fileID: 0}
   moveForwardKey: 119
   moveBackwardsKey: 115
   rotateClockwiseKey: 100
   rotateCounterClockwiseKey: 97
+  shootKey: 101

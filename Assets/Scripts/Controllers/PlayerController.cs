@@ -5,11 +5,14 @@ using UnityEngine;
 public class PlayerController : Controller 
 {
 
-    //The KeyCodes for each input
+    //The KeyCodes for movement inputs
     public KeyCode moveForwardKey;
     public KeyCode moveBackwardsKey;
     public KeyCode rotateClockwiseKey;
     public KeyCode rotateCounterClockwiseKey;
+
+    //keycode for shooting input
+    public KeyCode shootKey;
 
 
     // Start is called before the first frame update
@@ -66,6 +69,14 @@ public class PlayerController : Controller
         if (Input.GetKey(rotateCounterClockwiseKey))
         {
             pawn.RotateCounterClockwise();
+        }
+        //detect input for shooting
+        if (Input.GetKey(shootKey))
+        {
+            
+            pawn.Shoot();
+
+
         }
 
     }

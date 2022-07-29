@@ -8,5 +8,5 @@ public abstract class Shooter : MonoBehaviour
     public abstract void Start();
     public abstract void Update();
     //needs a bullet prefab, fireForce(speed?), damage number, and bullet life(how long the bullet can travel)
-    public abstract void Shoot(gameObject bulletPrefab, float fireForce, float damageDone, float lifespan);
+    public abstract void Shoot(GameObject bulletPrefab, float fireForce, float damageDone, float lifespan);
 }
