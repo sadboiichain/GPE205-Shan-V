@@ -40,6 +40,9 @@ public abstract class Pawn : MonoBehaviour
     //abstract function to shoot
     public abstract void Shoot();
 
+    //abstract function to turn towards a target object
+    public abstract void RotateTowards(Vector3 targetPosition);
+
     // Start is called before the first frame update
     public virtual void Start() 
     {

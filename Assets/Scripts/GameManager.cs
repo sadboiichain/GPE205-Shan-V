@@ -33,8 +33,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        //temp code, so the player is spawned as the game manager starts
-        // SpawnPlayer();
+        //the player is spawned as the game manager starts
+        SpawnPlayer();
     }
 
     public void SpawnPlayer()
