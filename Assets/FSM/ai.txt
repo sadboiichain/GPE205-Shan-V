@@ -1,0 +1,32 @@
+
+AI: Suicidal
+starts patroling the map
+higher range of listening/sight
+will chase after player without stop
+will stay within ~5 units of player
+will not stop shooting until either is dead
+
+AI: Cowardly
+hides at spawnpoint
+higher range of listening/sight
+will notice player within ~5 units
+will stay ~15m away after noticing player
+will run to other AI(tank first, others if tank is dead) for safety
+doubles speed after damage taken'
+does not fire
+
+AI: Guardian (normal)
+will roam the map, not patterned(if possible)
+average range of listening
+will chase for ~5 sec
+fires if player is in line of sight
+
+AI: Tank
+slower movement/rotation
+high health
+has a point to protect, will not roam further than ~10 units
+will return to point after ~5 sec
+
+
+
+
