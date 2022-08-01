@@ -22,10 +22,10 @@ public class PlayerController : Controller
         //if there is a game manager
         if(GameManager.instance != null)
         {
-            //if the player list exists
-            if(GameManager.instance.players != null)
-            {   //add to the player list
-                GameManager.instance.players.Add(this);
+            //if the playercontroller list exists
+            if(GameManager.instance.playerControllerList != null)
+            {   //add to the playercontroller list
+                GameManager.instance.playerControllerList.Add(this);
             }
         }
 
@@ -86,9 +86,9 @@ public class PlayerController : Controller
     {
         if(GameManager.instance != null)
         {
-            if(GameManager.instance.players != null)
+            if(GameManager.instance.playerControllerList != null)
             {   //remove from player list
-                GameManager.instance.players.Remove(this);
+                GameManager.instance.playerControllerList.Remove(this);
             }
         }
     }

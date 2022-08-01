@@ -10,9 +10,15 @@ public class GameManager : MonoBehaviour
     //used to set the location of the player spawn
     public Transform playerSpawnTransform;
 
-    //list of players
-    public List<PlayerController> players;
-    
+    //list of playerControllers
+    public List<PlayerController> playerControllerList;
+    //list of controllers
+    public List<Controller> controllerList;
+    //List of pawns
+    public List<Pawn> pawnList;
+    //list of aiControllers
+    public List<AIController> AIList;
+
 
     //Use Awake(); to do smething when the object is created, before Start(); can run
     private void Awake()
@@ -28,14 +34,11 @@ public class GameManager : MonoBehaviour
             //destroy this one to remove conflicts
             Destroy(gameObject);
         }
-        
-    }
 
-    private void Start()
-    {
-        //the player is spawned as the game manager starts
+        //spawn the player before the start funtion
         SpawnPlayer();
     }
+
 
     public void SpawnPlayer()
     {

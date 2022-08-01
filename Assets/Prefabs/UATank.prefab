@@ -212,6 +212,31 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -3145058497754134291, guid: 591965de7d988d44099fa44ef5ffdbde, type: 3}
+--- !u!114 &-3011809568274514444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2183872749772330598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a0c1187243bc3a4bbd390cfab512368, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeDistance: 15
+--- !u!114 &1601674560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2183872749772330598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 485ecfebae9c52d46a2a7dfa94c2e4cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1601674567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,8 +250,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mover: {fileID: 1601674560}
-  control: {fileID: 0}
+  control: {fileID: 526737662597408721, guid: c38b1897b3c15d842979a778dfd78bd2, type: 3}
   shooter: {fileID: 3553664243396993060}
+  noise: {fileID: 0}
   moveSpeed: 5
   turnSpeed: 45
   bulletPrefab: {fileID: 6803549903664184631, guid: d7fb20a6ae2909c4a9e9c27e6dbe355d, type: 3}
@@ -234,18 +260,6 @@ MonoBehaviour:
   damageDone: 5
   lifespan: 30
   fireRate: 3
---- !u!114 &1601674560
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2183872749772330598}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 485ecfebae9c52d46a2a7dfa94c2e4cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &3553664243396993060
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -8,7 +8,7 @@ public class AIController : Controller
     //variable to store the target object
     public GameObject target;
     //variable to store the time between state changes
-    private float lastStateChangeTime;
+    protected float lastStateChangeTime;
     //variable for flee distance
     public float fleeDistance;
     //array of transforms for a system of waypoints
@@ -16,7 +16,7 @@ public class AIController : Controller
     //how close before the waypoint is considered reached
     public float waypointStopDistance;
     //int for waypoint index
-    private int currentWaypoint = 0;
+    protected int currentWaypoint = 0;
     //enum for loop options
     public enum LoopingStates {IsLooping, IsNotLooping};
     public LoopingStates loopingStatus;
@@ -26,21 +26,60 @@ public class AIController : Controller
     //enum for current state
     public AIStates currentState;
 
+    //variable for hearingDistance, how far the ai can "hear" an object
+    public float hearingDistance;
+    //variable for field of view, how far the ai can "see" an object
+    public float fieldOfView;
+
+    //timer varaible to reduce the checks done by ai
+    public float aiSenseDelay;
+    //variable to know when to let the ai check next;
+    private float nextAIScan;
+    //delay between states
+    protected float stateDelay;
+
+
     // Start is called before the first frame update
     public override void Start()
     {
         base.Start();
 
+        //set the timer to adjust after the delay
+        nextAIScan = Time.time + aiSenseDelay;
+
+
+        TargetPlayerOne();
+        // TargetNearestTank();
+
         //set AI State at the beginning
-        ChangeState(AIStates.Idle);
+        ChangeState(AIStates.Patrol);
+
+        //if gameManager exists
+        if(GameManager.instance != null)
+        {   //if AIlist exists
+            if(GameManager.instance.AIList != null)
+            {   //add to list
+                GameManager.instance.AIList.Add(this);
+            }
+        }
+
     }
 
     // Update is called once per frame
     public override void Update()
     {
-        MakeDecisions();
+        // MakeDecisions();
 
         base.Update();
+    
+        if(nextAIScan <= Time.time)
+        {   //check if the ai can hear target
+            CanHear(target);
+            //check if the ai can see the target
+            CanSee(target);
+            //reset the timer
+            nextAIScan = Time.time + aiSenseDelay;
+        }
     }
 
     public void Shoot()
@@ -58,21 +97,22 @@ public class AIController : Controller
                 //do work
                 DoIdleState();
                 //check for transitions
-                if (IsDistanceLessThan(target, 10))
+                if (CanHear(target))
                 {
-                    ChangeState(AIStates.Chase);
+                    ChangeState(AIStates.Scan);
                 }
                 break;
             case AIStates.Chase:
-                DoFleeState();
-                if (!IsDistanceLessThan(target, 10))
+                DoChaseState();
+                stateDelay = 10f;
+                if (Time.time >= lastStateChangeTime+stateDelay)
                 {
-                    ChangeState(AIStates.Idle);
+                    ChangeState(AIStates.Scan);
                 } 
-                // else if (IsDistanceLessThan(target, 5))
-                // {
-                //     ChangeState(AIStates.Attack);
-                // }
+                else if (IsDistanceLessThan(target, 5))
+                {
+                    ChangeState(AIStates.Attack);
+                }
                 break;
             case AIStates.Attack:
                 DoAttackState();
@@ -81,26 +121,61 @@ public class AIController : Controller
                     ChangeState(AIStates.Chase);
                 }
                 break;
+            case AIStates.Flee:
+                DoFleeState();
+                if(!IsDistanceLessThan(target, 15))
+                {
+                    ChangeState(AIStates.Idle);
+                }
+                break;
+            case AIStates.Patrol:
+                doPatrolState();
+                if(CanHear(target))
+                {
+                    ChangeState(AIStates.Scan);
+                }
+                break;
+            case AIStates.Scan:
+                doScanState();
+                stateDelay = 5f;
+                Debug.Log(CanSee(target));
+                if(CanSee(target))
+                {
+                    
+                    ChangeState(AIStates.Chase);
+                }
+                else if(Time.time >= lastStateChangeTime+stateDelay)
+                {
+                    ChangeState(AIStates.Patrol);
+                }
+                break;
+            case AIStates.ReturnToPost:
+                doReturnState();
+                if(CanHear(target))
+                {
+                    ChangeState(AIStates.Scan);
+                }
+                else if(IsDistanceLessThan(waypoints[0].gameObject, waypointStopDistance))
+                {
+                    ChangeState(AIStates.Patrol);
+                }
+                break;
         }
     }
 
     //function to target the player after spawn
-    public void TargetPlayerOne()
-    {
-        //if gameManager exists
+    protected void TargetPlayerOne(){
         if(GameManager.instance != null)
         {
-            //if the player array exists
-            if (GameManager.instance.players != null)
+            if(GameManager.instance.playerControllerList != null)
             {
-                //if there are players inside
-                if(GameManager.instance.players.Count > 0)
+                if(GameManager.instance.playerControllerList.Count > 0)
                 {
-                    //then target the pawn of the first player controller
-                    target = GameManager.instance.players[0].pawn.gameObject;
+                    target = GameManager.instance.playerControllerList[0].pawn.gameObject;
                 }
             }
         }
+        
     }
 
     //method to target the nearest player, can be edited to target nearest object of choice
@@ -119,12 +194,19 @@ public class AIController : Controller
             //if this tank is closer that the closestTank
             if(Vector3.Distance(pawn.transform.position, tank.transform.position) <= closestTankDistance)
             {
-                closestTank = tank;
-                closestTankDistance = Vector3.Distance(pawn.transform.position, closestTank.transform.position);
+                if(Vector3.Distance(pawn.transform.position, tank.transform.position) != 0){
+                    closestTank = tank;
+                    closestTankDistance = Vector3.Distance(pawn.transform.position, closestTank.transform.position);
+                }
             }
         }
         //target the closest tank
         target = closestTank.gameObject;
+    }
+
+    protected bool isHasTarget()
+    {
+        return (target != null);
     }
 
     //one method to change states
@@ -196,7 +278,10 @@ public class AIController : Controller
     {
         pawn.moveSpeed = 3;
         //chase
-        Seek(target);
+        if(!IsDistanceLessThan(target, 2)){
+            Seek(target);
+        }
+        
         //shoot
         Shoot();
     }
@@ -232,11 +317,18 @@ public class AIController : Controller
         pawn.MoveBackward();
     }
 
+    //AI State: Patrol
+    protected void doPatrolState()
+    {
+        Patrol();
+    }
+
     //AI Action: Patrol
     protected void Patrol(){
         //if there are enough waypoints to move
         if(waypoints.Length > currentWaypoint)
         {
+            //Debug.Log("")
             //seek the waypoint
             Seek(waypoints[currentWaypoint]);
             //if close to the current waypoint...
@@ -256,6 +348,105 @@ public class AIController : Controller
     {
         //set index to 0
         currentWaypoint = 0;
+    }
+
+    //AI State: Scan
+    protected void doScanState()
+    {
+        Scan();
+    }
+
+    //AI Action: Scan
+    protected void Scan()
+    {
+        pawn.RotateTowards(target.transform.position);
+    }
+
+    //AI State: Return
+    public void doReturnState()
+    {
+        Seek(waypoints[currentWaypoint]);
+    }
+
+    public void OnDestroy()
+    {
+        if (GameManager.instance != null)
+        {
+            if(GameManager.instance.AIList != null)
+            {
+                GameManager.instance.AIList.Remove(this);
+            }
+        }
+    }
+
+        //boolean to "listen" for the noiseMaker script
+    public bool CanHear(GameObject target)
+    {
+        //get the targets noiseMaker
+        NoiseMaker noise = target.GetComponent<NoiseMaker>();
+        //if target does not have a noisemaker/can not make noise
+        if(noise == null)
+        {
+            return false;
+        }
+        //if there is no noise to be heard/ volume at 0
+        if(noise.volumeDistance <= 0)
+        {
+            return false;
+        }
+
+        //if the target is making noise, add volumeDistance to the hearingDistance in the ai
+        float totalDistance = noise.volumeDistance + hearingDistance;
+        //if the distance is between the max distance(totalDistance) and the ai 
+        if(Vector3.Distance(pawn.transform.position, target.transform.position) <= totalDistance)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
+    }
+
+    public bool CanSee(GameObject target)
+    {
+        //find the vector from the agent(tank?) to the target
+        Vector3 agentToTargetVector = target.transform.position - pawn.transform.position;
+        //creat a ray object to easily call later (vector for location of ray start, vector for ray angle)
+        Ray sight = new Ray(pawn.transform.position, agentToTargetVector);
+        //store the info of what was hit by the raycast
+        RaycastHit hit;
+
+        //find angle between the directon our agent is facing (forward in local space) and the vector to the target
+        float angleToTarget = Vector3.Angle(agentToTargetVector, pawn.transform.forward * pawn.maxViewDistance);
+
+        Physics.Raycast(sight, out hit, pawn.maxViewDistance);
+
+        //if this angle is less than our field of view
+        if (angleToTarget < fieldOfView)
+        {              
+            if(IsDistanceLessThan(target, pawn.maxViewDistance)){
+                if(hit.collider.gameObject == target)
+                {
+                    Debug.Log(hit.collider.gameObject.name);
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            }
+            else   
+            {
+                return false;
+            }
+            
+        }
+        else
+        {
+            return false;
+        }
+
     }
 
 }

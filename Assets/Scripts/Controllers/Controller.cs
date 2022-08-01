@@ -13,6 +13,15 @@ public abstract class Controller : MonoBehaviour
         
         //access the information in pawns
         pawn = pawn.GetComponent<Pawn>();
+
+        //if gameManager exists
+        if(GameManager.instance != null)
+        {   //if controllerList exists
+            if(GameManager.instance.controllerList != null)
+            {   //add to controllerList
+                GameManager.instance.controllerList.Add(this);
+            }
+        }
     }
 
     // Update is called once per frame
@@ -21,4 +30,15 @@ public abstract class Controller : MonoBehaviour
 
     }
 
+    private void OnDestroy()
+    {
+        if(GameManager.instance != null)
+        {
+             if(GameManager.instance.controllerList != null)
+             {
+                GameManager.instance.controllerList.Remove(this);
+             }
+        }
+    }
+    
 }

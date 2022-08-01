@@ -26,30 +26,42 @@ public class TankPawn : Pawn
         //timer code
         timeUntilNextEvent -= Time.deltaTime;
 
+        //simulate a falloff range
+        if(noise.volumeDistance > 0)
+        {
+            noise.volumeDistance--;
+        }
+
+        
+
     }
 
     //set up controls for moving the tank forwards, current code temporary
     public override void MoveForward()
     {
         mover.Move(transform.forward, moveSpeed);
+        noise.MakeNoise(15);
     }
 
     //set up controls for moving tank backwards, current code temporary
     public override void MoveBackward()
     {
         mover.Move(transform.forward, -moveSpeed);
+        noise.MakeNoise(15);
     }
 
     //set up controls for rotating the tank clockwise (to the right), current code temporary
     public override void RotateClockwise()
     {
         mover.Rotate(turnSpeed);
+        noise.MakeNoise(10);
     }
 
     //set up controls for rotating the tank counter clockwise (to the left), current code temporary
     public override void RotateCounterClockwise()
     {
         mover.Rotate(-turnSpeed); 
+        noise.MakeNoise(10);
     }
 
     //set up the shooting function so the controller can call it
@@ -60,7 +72,11 @@ public class TankPawn : Pawn
             shooter.Shoot(bulletPrefab, fireForce, damageDone, lifespan);
 
             timeUntilNextEvent = fireRate;
+
+            //shooting makes noise
+            noise.MakeNoise(25);
         }
+        
 
     }
 
@@ -73,5 +89,8 @@ public class TankPawn : Pawn
         //turn based on time, not in one frame
         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
 
+        noise.MakeNoise(10);
+
     }
+
 }
