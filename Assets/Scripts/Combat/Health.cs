@@ -41,16 +41,16 @@ public class Health : MonoBehaviour
     
     }
 
-    // //mentioned in the notes, but not graded. useful if reusing code
-    // public void HealDamage(float heal)
-    // {
-    //     //add heal to current health value
-    //     currentHealth += heal;
+    //mentioned in the notes, but not graded. useful if reusing code
+    public void HealDamage(float heal, Pawn source)
+    {
+        //add heal to current health value
+        currentHealth += heal;
 
-    //     //clamp to limit number
-    //     currentHealth = MathF.Clamp(currentHealth, 0, maxHealth);
+        //clamp to limit number
+        currentHealth = Math.Clamp(currentHealth, 0, maxHealth);
 
-    // }
+    }
 
     public void Die()
     {
