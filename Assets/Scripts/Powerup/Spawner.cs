@@ -19,18 +19,32 @@ public class Spawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if the object is not spawned
-        if(spawnedPickup == null)
+        if(GameManager.instance != null)
         {
-            //if the time has passed to spawn a pickup
-            if(Time.time > nextSpawnTime)
-            {
-                //spawn the item
-                spawnedPickup = Instantiate(pickupPrefab, transform.position, Quaternion.identity) as GameObject;
-                //set next spawn time
-                nextSpawnTime = Time.time + spawnDelay;
+            if(GameManager.instance.powerList != null)
+            {  
+                if(GameManager.instance.powerList.Count < GameManager.instance.pickupLimit)
+                {
+                    //if the object is not spawned
+                    if(spawnedPickup == null)
+                    {                        
+                        //if the time has passed to spawn a pickup
+                        if(Time.time > nextSpawnTime)
+                        {
+                            
+                            //spawn the item
+                            spawnedPickup = Instantiate(pickupPrefab, transform.position, Quaternion.identity) as GameObject;
+                            //set next spawn time
+                            nextSpawnTime = Time.time + spawnDelay;
+
+                            GameManager.instance.powerList.Add(spawnedPickup);
+                        }
+                    }    
+                }
+
             }
         }
+        
         else
         {
             //otherwise reset the countdown to delay the spawn

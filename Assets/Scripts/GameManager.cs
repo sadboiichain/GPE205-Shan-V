@@ -7,9 +7,6 @@ public class GameManager : MonoBehaviour
     //create the singleton gameManager
     public static GameManager instance;
 
-    //used to set the location of the player spawn
-    public Transform playerSpawnTransform;
-
     //list of playerControllers
     public List<PlayerController> playerControllerList;
     //list of controllers
@@ -18,11 +15,20 @@ public class GameManager : MonoBehaviour
     public List<Pawn> pawnList;
     //list of aiControllers
     public List<AIController> AIList;
+    //limit for pickups
+    public float pickupLimit;
+    public List<GameObject> powerList;
+    public PawnSpawnPoint[] spawn; 
+    private Transform playerSpawnTransform;
+
+    public List<AIController> spawnList;
+    public List<Pawn> aiSpawnList;
 
 
     //Use Awake(); to do smething when the object is created, before Start(); can run
     private void Awake()
     {
+        powerList = new List<GameObject>();
         // check for other gameManagers
         if (instance == null)
         {
@@ -34,8 +40,12 @@ public class GameManager : MonoBehaviour
             //destroy this one to remove conflicts
             Destroy(gameObject);
         }
+    }
 
-        //spawn the player before the start funtion
+    private void Start()
+    {
+        spawn = FindObjectsOfType<PawnSpawnPoint>();
+        setPlayerSpawn();
         SpawnPlayer();
     }
 
@@ -54,6 +64,19 @@ public class GameManager : MonoBehaviour
 
        //connect the new objects
        newController.pawn = newPawn;
+
+    }
+
+    public void setPlayerSpawn()
+    {   
+        int temp = Random.Range(0,spawn.Length);
+        playerSpawnTransform = spawn[temp].GetComponent<Transform>();
+        Destroy(spawn[temp]);
+    }
+
+    public void SpawnAI(GameObject AIPrefab, GameObject AIControlPrefab)
+    {
+
 
     }
 

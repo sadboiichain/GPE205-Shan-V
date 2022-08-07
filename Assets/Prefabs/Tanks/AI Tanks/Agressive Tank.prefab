@@ -136,7 +136,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mover: {fileID: 6020478569924063290}
-  control: {fileID: 0}
+  control: {fileID: 6425366493693155822, guid: 3a12a4fefe911a24a9ab9d738bf00e18, type: 3}
   shooter: {fileID: 6020478569924063289}
   noise: {fileID: 0}
   moveSpeed: 5
