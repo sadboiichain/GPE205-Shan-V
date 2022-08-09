@@ -21,8 +21,10 @@ public class GameManager : MonoBehaviour
     public PawnSpawnPoint[] spawn; 
     private Transform playerSpawnTransform;
 
-    public List<AIController> spawnList;
-    public List<Pawn> aiSpawnList;
+    public List<GameObject> AIControllerSpawn;
+    public List<GameObject> AIPawnSpawn;
+
+    private Transform AISpawnTransform;
 
 
     //Use Awake(); to do smething when the object is created, before Start(); can run
@@ -47,6 +49,10 @@ public class GameManager : MonoBehaviour
         spawn = FindObjectsOfType<PawnSpawnPoint>();
         setPlayerSpawn();
         SpawnPlayer();
+        SpawnAI(AIPawnSpawn[0], AIControllerSpawn[0]);
+        SpawnAI(AIPawnSpawn[1], AIControllerSpawn[1]);
+        SpawnAI(AIPawnSpawn[2], AIControllerSpawn[2]);
+        SpawnAI(AIPawnSpawn[3], AIControllerSpawn[3]);
     }
 
 
@@ -74,10 +80,25 @@ public class GameManager : MonoBehaviour
         Destroy(spawn[temp]);
     }
 
-    public void SpawnAI(GameObject AIPrefab, GameObject AIControlPrefab)
+    public void SpawnAI(GameObject AIPrefab, GameObject AIControlPrefab)//2 ideas: run this 4 times, once with each ai; or run a for/foreach loop to spawn each one without calling 4 times
     {
+        //spawn AIcontroller at origin with no rotation
+        GameObject newAICont = Instantiate(AIControlPrefab, Vector3.zero, Quaternion.identity) as GameObject;
 
+        //spawn AiPrefab at a random spawn
+        setAISpawn();
+        GameObject newAIPawn = Instantiate(AIPrefab, AISpawnTransform.position, Quaternion.identity) as GameObject;
 
+        AIController newController = newAICont.GetComponent<AIController>();
+        Pawn newAI = newAIPawn.GetComponent<Pawn>();
+
+    }
+
+    public void setAISpawn()
+    {   
+        int temp = Random.Range(0,spawn.Length);
+        AISpawnTransform = spawn[temp].GetComponent<Transform>();
+        Destroy(spawn[temp]);
     }
 
     //prefabs 

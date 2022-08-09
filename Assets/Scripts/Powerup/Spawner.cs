@@ -6,9 +6,10 @@ public class Spawner : MonoBehaviour
 {
     public GameObject pickupPrefab;
     public float spawnDelay;
-    private float nextSpawnTime;
+    public float nextSpawnTime;
     private Transform tf;
-    private GameObject spawnedPickup;
+    public GameObject spawnedPickup;
+    public bool isSpawned;
 
     // Start is called before the first frame update
     void Start()
@@ -19,36 +20,32 @@ public class Spawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(GameManager.instance != null)
-        {
-            if(GameManager.instance.powerList != null)
-            {  
-                if(GameManager.instance.powerList.Count < GameManager.instance.pickupLimit)
+        if(GameManager.instance.powerList.Count < GameManager.instance.pickupLimit)
+        {   //Debug.Log("less than limit");  
+            //if the object is not spawned
+            if(spawnedPickup == null)
+            {       
+                //if the time has passed to spawn a pickup
+                if(Time.time > nextSpawnTime)
                 {
-                    //if the object is not spawned
-                    if(spawnedPickup == null)
-                    {                        
-                        //if the time has passed to spawn a pickup
-                        if(Time.time > nextSpawnTime)
-                        {
                             
-                            //spawn the item
-                            spawnedPickup = Instantiate(pickupPrefab, transform.position, Quaternion.identity) as GameObject;
-                            //set next spawn time
-                            nextSpawnTime = Time.time + spawnDelay;
+                            
+                    //spawn the item
+                    spawnedPickup = Instantiate(pickupPrefab, transform.position, Quaternion.identity) as GameObject;
+                    //set next spawn time
+                    nextSpawnTime = Time.time + spawnDelay;
 
-                            GameManager.instance.powerList.Add(spawnedPickup);
-                        }
-                    }    
+                        
+
+                    GameManager.instance.powerList.Add(spawnedPickup);
                 }
-
             }
-        }
-        
-        else
-        {
-            //otherwise reset the countdown to delay the spawn
-            nextSpawnTime = Time.time + spawnDelay;
+            else
+            {
+                
+                //otherwise reset the countdown to delay the spawn
+                nextSpawnTime = Time.time + spawnDelay;
+            }    
         }
 
     }

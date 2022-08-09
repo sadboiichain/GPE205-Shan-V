@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class HealthPowerup : Powerup
+public class LandminePowerup : Powerup
 {
-    public float healthToAdd;
+    public float damageTaken;
 
     public override void Apply(PowerupManager target)
     {
-        //apply health changes
         Health targetHealth = target.GetComponent<Health>();
 
         if(targetHealth != null)
         {
-            targetHealth.HealDamage(healthToAdd, target.GetComponent<Pawn>());
+            targetHealth.TakeDamage(target.GetComponent<Pawn>(), damageTaken);
         }
+
     }
 
     public override void Remove(PowerupManager target)

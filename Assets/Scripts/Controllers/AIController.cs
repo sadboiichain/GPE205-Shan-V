@@ -328,7 +328,6 @@ public class AIController : Controller
         //if there are enough waypoints to move
         if(waypoints.Length > currentWaypoint)
         {
-            //Debug.Log("")
             //seek the waypoint
             Seek(waypoints[currentWaypoint]);
             //if close to the current waypoint...

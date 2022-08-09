@@ -2,28 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealthPickup : MonoBehaviour
+public class dDamagePickup : MonoBehaviour
 {
-    public HealthPowerup powerup;
+    public dDamagePowerup damage;
+
     public Spawner spawn;
 
     public void OnTriggerEnter(Collider other)
     {
-        //variable to store the other objects powerup controller
         PowerupManager powerupManager = other.GetComponent<PowerupManager>();
 
-        //if the other object has a power up Controller
         if(powerupManager != null)
         {
-            //add the powerup
-            powerupManager.Add(powerup);
-        
-            //destroy this object
+            powerupManager.Add(damage);
+
             Destroy(gameObject);
 
             GameManager.instance.powerList.Remove(gameObject);
-           
+
             spawn.isSpawned = false;
+            
         }
+
     }
 }
