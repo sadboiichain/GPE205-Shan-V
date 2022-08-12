@@ -63,7 +63,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 695577420817879798}
-  m_LocalRotation: {x: 0.00064116414, y: 0.99497473, z: -0.006384486, w: 0.09992067}
+  m_LocalRotation: {x: 0.0017569934, y: 0.9975211, z: -0.026976975, w: 0.06496792}
   m_LocalPosition: {x: 7.214859, y: 1.7, z: 91.4426}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -170,7 +170,7 @@ MonoBehaviour:
   control: {fileID: 7101471871336595541, guid: 902d65b348ec3554bb9c3e80c7bd6396, type: 3}
   shooter: {fileID: 695577420817879799}
   noise: {fileID: 0}
-  moveSpeed: -9
+  moveSpeed: 5
   turnSpeed: 45
   bulletPrefab: {fileID: 6803549903664184631, guid: d7fb20a6ae2909c4a9e9c27e6dbe355d, type: 3}
   fireForce: 1000

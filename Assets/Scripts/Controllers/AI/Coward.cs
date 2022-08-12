@@ -16,7 +16,7 @@ public class Coward : AIController
     public override void Update()
     {
         base.Update();
-        TargetNearestTank();
+        TargetPlayerOne();
         MakeDecisions();
     }
 

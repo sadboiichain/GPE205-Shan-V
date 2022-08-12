@@ -14,6 +14,9 @@ public class PlayerController : Controller
     //keycode for shooting input
     public KeyCode shootKey;
 
+    //score variable
+    public float Score;
+
 
     // Start is called before the first frame update
     public override void Start()
@@ -31,13 +34,16 @@ public class PlayerController : Controller
 
         //run the parent class start function
         base.Start();
-
+        
     }
 
     // Update is called once per frame
     public override void Update()
     {
-
+        if(Time.time < .5)
+        {
+            Score = 0;
+        }
 
         //run the parent class update function
         base.Update();
@@ -92,4 +98,12 @@ public class PlayerController : Controller
             }
         }
     }
+
+    public void AddToScore(int toAdd)
+    {
+        Score += toAdd;
+
+    }
+
+
 }

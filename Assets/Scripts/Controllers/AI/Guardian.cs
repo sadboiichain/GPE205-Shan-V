@@ -59,7 +59,7 @@ public class Guardian : AIController
                 }
                 else if(Time.time >= lastStateChangeTime+stateDelay)
                 {
-                    ChangeState(AIStates.ReturnToPost);
+                    ChangeState(AIStates.Idle);
                 }
                 break;
             case AIStates.ReturnToPost:

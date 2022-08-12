@@ -50,6 +50,7 @@ public abstract class Pawn : MonoBehaviour
     // Start is called before the first frame update
     public virtual void Start() 
     {
+        control = GetComponent<Controller>();
         //access the methods in movement
         mover = GetComponent<Movement>();
         //access the methods in shooter

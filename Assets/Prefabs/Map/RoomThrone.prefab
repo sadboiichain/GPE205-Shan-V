@@ -1544,6 +1544,7 @@ MonoBehaviour:
   doorSouth: {fileID: 1792656430707769081}
   doorEast: {fileID: 1792656430707594887}
   doorWest: {fileID: 1792656430707740585}
+  patrolPoints: []
 --- !u!1 &1792656430707763069
 GameObject:
   m_ObjectHideFlags: 0
@@ -3352,6 +3353,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1877468441019122579, guid: adb0a81d3b51e464bb85e0b71aff0c2c, type: 3}
+      propertyPath: original
+      value: 
+      objectReference: {fileID: 1792656430697302541}
     - target: {fileID: 6913391313711550362, guid: adb0a81d3b51e464bb85e0b71aff0c2c, type: 3}
       propertyPath: m_Name
       value: PawnSpawn
@@ -3476,6 +3481,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1877468441019122579, guid: adb0a81d3b51e464bb85e0b71aff0c2c, type: 3}
+      propertyPath: original
+      value: 
+      objectReference: {fileID: 1792656430697302541}
     - target: {fileID: 6913391313711550362, guid: adb0a81d3b51e464bb85e0b71aff0c2c, type: 3}
       propertyPath: m_Name
       value: PawnSpawn

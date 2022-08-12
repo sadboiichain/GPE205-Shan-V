@@ -35,7 +35,12 @@ public class Health : MonoBehaviour
         
         //check if the player dies
         if (currentHealth <= 0)
-        {
+        {   Debug.Log(gameObject.name + " died.");
+            PlayerController control = source.GetComponent<PlayerController>();
+            if(control != null)
+            {   Debug.Log("controller found");
+                control.AddToScore(100);
+            }
             Die();
         }
     
@@ -54,6 +59,7 @@ public class Health : MonoBehaviour
 
     public void Die()
     {
+        
         Destroy(gameObject);
     }
 

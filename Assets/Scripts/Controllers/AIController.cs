@@ -194,7 +194,7 @@ public class AIController : Controller
             //if this tank is closer that the closestTank
             if(Vector3.Distance(pawn.transform.position, tank.transform.position) <= closestTankDistance)
             {
-                if(Vector3.Distance(pawn.transform.position, tank.transform.position) != 0){
+                if(Vector3.Distance(pawn.transform.position, tank.transform.position) !<= 2){
                     closestTank = tank;
                     closestTankDistance = Vector3.Distance(pawn.transform.position, closestTank.transform.position);
                 }

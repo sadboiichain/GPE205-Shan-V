@@ -1130,6 +1130,9 @@ MonoBehaviour:
   doorSouth: {fileID: 109208}
   doorEast: {fileID: 197350}
   doorWest: {fileID: 121800}
+  patrolPoints:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &190428
 GameObject:
   m_ObjectHideFlags: 0

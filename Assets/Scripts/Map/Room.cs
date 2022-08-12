@@ -8,4 +8,6 @@ public class Room : MonoBehaviour {
 	public GameObject doorEast;
 	public GameObject doorWest;
 
+	public Transform[] patrolPoints;
+
 }
