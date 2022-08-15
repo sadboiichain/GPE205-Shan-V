@@ -23,7 +23,7 @@ public class HealthPickup : MonoBehaviour
 
             GameManager.instance.powerList.Remove(gameObject);
            
-            spawn.isSpawned = false;
+
         }
     }
 }

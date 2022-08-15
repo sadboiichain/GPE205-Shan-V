@@ -7,6 +7,11 @@ public abstract class Controller : MonoBehaviour
     //variable to hold the pawn class
     public Pawn pawn;
 
+    //score variable
+    public float Score;
+
+
+
     // Start is called before the first frame update
     public virtual void Start()
     { 
@@ -38,6 +43,17 @@ public abstract class Controller : MonoBehaviour
              {
                 GameManager.instance.controllerList.Remove(this);
              }
+        }
+    }
+
+        public void AddToScore(float toAdd)
+    {
+        Score += toAdd;
+        Debug.Log("score added");
+        if(pawn.scoreCount != null)
+        {
+            Debug.Log("count found");
+            pawn.scoreCount.UpdateScore(Score);
         }
     }
     

@@ -9,7 +9,8 @@ public class Spawner : MonoBehaviour
     public float nextSpawnTime;
     private Transform tf;
     public GameObject spawnedPickup;
-    public bool isSpawned;
+
+    // public bool canSpawn;
 
     // Start is called before the first frame update
     void Start()
@@ -21,7 +22,8 @@ public class Spawner : MonoBehaviour
     void Update()
     {
         if(GameManager.instance.powerList.Count < GameManager.instance.pickupLimit)
-        {   //Debug.Log("less than limit");  
+        {   
+            // if() 
             //if the object is not spawned
             if(spawnedPickup == null)
             {       

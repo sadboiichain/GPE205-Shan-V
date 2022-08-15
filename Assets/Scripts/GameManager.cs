@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
 
     private Transform AISpawnTransform;
     private Transform LastSpawn;
+    private Transform LastAISpawn;
 
     private Transform[] waypoints;
 
@@ -50,15 +51,15 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        spawn = FindObjectsOfType<PawnSpawnPoint>();
-        setPlayerSpawn();
-        SpawnPlayer();
-        SpawnAI(AIPawnSpawn[0], AIControllerSpawn[0]);   //aggressive
-        SpawnAI(AIPawnSpawn[1], AIControllerSpawn[1]);   //coward
-        SpawnAI(AIPawnSpawn[2], AIControllerSpawn[2]);
-        SpawnAI(AIPawnSpawn[3], AIControllerSpawn[3]);
-
         ActivateTitleScreen();
+
+        // spawn = FindObjectsOfType<PawnSpawnPoint>();
+        // SpawnPlayer();
+        // SpawnAI(AIPawnSpawn[0], AIControllerSpawn[0]);   //aggressive
+        // SpawnAI(AIPawnSpawn[1], AIControllerSpawn[1]);   //coward
+        // SpawnAI(AIPawnSpawn[2], AIControllerSpawn[2]);
+        // SpawnAI(AIPawnSpawn[3], AIControllerSpawn[3]);
+
     }
 
     private void Update()
@@ -69,6 +70,7 @@ public class GameManager : MonoBehaviour
 
     public void SpawnPlayer()
     {
+        setPlayerSpawn();
         //spawn playerController at origin with no rotation
         GameObject newPlayerObj = Instantiate(playerControllerPrefab, Vector3.zero, Quaternion.identity) as GameObject;
 
@@ -87,6 +89,18 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public void RespawnPlayer(Pawn toRespawn)
+    {
+        setPlayerSpawn();
+        if(playerSpawnTransform == LastSpawn)
+        {
+            setPlayerSpawn();
+        }
+        toRespawn.transform.position = playerSpawnTransform.position;
+        toRespawn.LifeLost();
+        toRespawn.GetComponent<Health>().currentHealth = toRespawn.GetComponent<Health>().maxHealth;
+    }
+
     public void setPlayerSpawn()
     {   
         int temp = Random.Range(0,spawn.Length);
@@ -101,7 +115,8 @@ public class GameManager : MonoBehaviour
 
         //spawn AiPrefab at a random spawn
         setAISpawn();
-        if(AISpawnTransform == playerSpawnTransform || AISpawnTransform == LastSpawn)
+        setAISpawn();
+        if(AISpawnTransform == playerSpawnTransform || AISpawnTransform == LastAISpawn)
         {
             setAISpawn();
         }
@@ -122,7 +137,14 @@ public class GameManager : MonoBehaviour
     public void setAISpawn()
     {   
         int temp = Random.Range(0,spawn.Length);
-        LastSpawn = AISpawnTransform;
+        if(LastAISpawn == null)
+        {
+            LastAISpawn = playerSpawnTransform;
+        }
+        else
+        {
+            LastAISpawn = AISpawnTransform;
+        }
         AISpawnTransform = spawn[temp].GetComponent<Transform>();
         
     }

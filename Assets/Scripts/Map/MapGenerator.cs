@@ -119,4 +119,20 @@ public class MapGenerator : MonoBehaviour
 
         }
     }
+
+    public void ChangeDaily(bool toggle)
+    {
+        isDaily = toggle;
+    }
+
+    public void ChangeRandom(bool toggle)
+    {
+        isRandom = toggle;
+    }
+
+    public void setSeed(int seed)
+    {
+        mapSeed = seed;
+    }
 }
+

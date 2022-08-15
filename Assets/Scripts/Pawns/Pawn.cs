@@ -35,6 +35,11 @@ public abstract class Pawn : MonoBehaviour
     //variable for view distance(how far our tanks can "see")
     public float maxViewDistance;
 
+    public float lives;
+
+    public UILives Life;
+    public UIScore scoreCount;
+
     //abstract functions so each class can adjust
     public abstract void MoveForward();
     public abstract void MoveBackward();
@@ -50,7 +55,6 @@ public abstract class Pawn : MonoBehaviour
     // Start is called before the first frame update
     public virtual void Start() 
     {
-        control = GetComponent<Controller>();
         //access the methods in movement
         mover = GetComponent<Movement>();
         //access the methods in shooter
@@ -86,4 +90,12 @@ public abstract class Pawn : MonoBehaviour
             }
         }
     }
+
+    public void LifeLost()
+    {
+        lives--;
+        Life.UpdateLives(lives);
+    }
+
+
 }
