@@ -44,6 +44,27 @@ public class Health : MonoBehaviour
             else
             {
                 Die();
+                if(GameManager.instance.isMulti){
+                    if(pawn1.control == GameManager.instance.playerControllerList[0])
+                    {
+                        GameManager.instance.isP1Dead = true;
+                    }
+                    else if(pawn1.control == GameManager.instance.playerControllerList[1])
+                    {
+                        GameManager.instance.isP2Dead = true;
+                    }
+                    if(GameManager.instance.isP1Dead == true && GameManager.instance.isP2Dead == true)
+                    {
+                        GameManager.instance.ActivateGameOverScreen();
+                    }
+                }
+
+                if(pawn1.control == GameManager.instance.playerControllerList[0] && GameManager.instance.isMulti == false)
+                {
+                    GameManager.instance.ActivateGameOverScreen();
+                }
+
+                
             }
             
         }
@@ -65,7 +86,7 @@ public class Health : MonoBehaviour
 
     public void Die()
     {
-        Destroy(gameObject.GetComponent<Pawn>().control);
+        
         Destroy(gameObject);
     }
 

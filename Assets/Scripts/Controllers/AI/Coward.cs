@@ -54,7 +54,6 @@ public class Coward : AIController
             case AIStates.Scan:
                 doScanState();
                 stateDelay = 5f;
-                Debug.Log(CanSee(target));
                 if(CanSee(target))
                 {
                     

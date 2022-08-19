@@ -53,7 +53,6 @@ public class Agressive : AIController
             case AIStates.Scan:
                 doScanState();
                 stateDelay = 5f;
-                Debug.Log(CanSee(target));
                 if(CanSee(target))
                 {
                     
@@ -81,6 +80,10 @@ public class Agressive : AIController
     public new void DoAttackState()
     {
         pawn.moveSpeed = 4;
+        if(target == null)
+        {
+            ChangeState(AIStates.Idle);
+        }
 
         if(!IsDistanceLessThan(target, 2)){
             Seek(target);

@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e69255e7c795ec448bfb006f14f72e20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  manager: {fileID: 320404758818596293, guid: 7d3656f57ae5ff340ae143576357772a, type: 3}
   playerControllerList: []
   controllerList: []
   pawnList: []
@@ -52,14 +53,27 @@ MonoBehaviour:
   powerList: []
   spawn: []
   AIControllerSpawn:
-  - {fileID: 6425366493693155822, guid: 3a12a4fefe911a24a9ab9d738bf00e18, type: 3}
-  - {fileID: 1311644325191251767, guid: 875038b25f1cc8a41ba80d16d2e27a4e, type: 3}
-  - {fileID: 4850030889187157202, guid: 044e45e3033ec014d806e9b6918d06ef, type: 3}
-  - {fileID: 7101471871336595541, guid: 902d65b348ec3554bb9c3e80c7bd6396, type: 3}
+  - {fileID: 3896769506805188480, guid: 3a12a4fefe911a24a9ab9d738bf00e18, type: 3}
+  - {fileID: 9010720305342835033, guid: 875038b25f1cc8a41ba80d16d2e27a4e, type: 3}
+  - {fileID: 3202519573745744548, guid: 044e45e3033ec014d806e9b6918d06ef, type: 3}
+  - {fileID: 986878733346922019, guid: 902d65b348ec3554bb9c3e80c7bd6396, type: 3}
   AIPawnSpawn:
-  - {fileID: 6020478570594813039, guid: f4ac20ca414eb8b47b1de37541db8887, type: 3}
-  - {fileID: 5814614693577980360, guid: 1672e480c3095d24e9a72c4c9bbf7a2d, type: 3}
-  - {fileID: 7896981566978680177, guid: c420751654bb6bb4e8628814a2e8176c, type: 3}
-  - {fileID: 695577420952692385, guid: 187ebf4dd6318484bb35c86132b65743, type: 3}
+  - {fileID: 6020478569924063288, guid: f4ac20ca414eb8b47b1de37541db8887, type: 3}
+  - {fileID: 5814614692906159519, guid: 1672e480c3095d24e9a72c4c9bbf7a2d, type: 3}
+  - {fileID: 7896981566576480550, guid: c420751654bb6bb4e8628814a2e8176c, type: 3}
+  - {fileID: 695577420817879798, guid: 187ebf4dd6318484bb35c86132b65743, type: 3}
+  multiPawn:
+  - {fileID: 8688473786783476450, guid: 3606870dae536724791584d38df7d7ea, type: 3}
+  - {fileID: 5902624710908100321, guid: 157b5616fd605744a8fbaec7a4933464, type: 3}
+  multiCont:
+  - {fileID: 526737662597408726, guid: c38b1897b3c15d842979a778dfd78bd2, type: 3}
+  - {fileID: 3454557053215514030, guid: 5376841bd8127ab41bd46d3f3e12bdbd, type: 3}
+  isMulti: 0
   playerControllerPrefab: {fileID: 526737662597408726, guid: c38b1897b3c15d842979a778dfd78bd2, type: 3}
   tankPawnPrefab: {fileID: 2183872749772330598, guid: 49402e298dff0f74ba42d0a4da2a9a2f, type: 3}
+  TitleScreenStateObject: {fileID: 0}
+  MainMenuStateObject: {fileID: 0}
+  OptionsStateObject: {fileID: 0}
+  CreditsStateObject: {fileID: 0}
+  GameplayStateObject: {fileID: 0}
+  GameOverStateObject: {fileID: 0}

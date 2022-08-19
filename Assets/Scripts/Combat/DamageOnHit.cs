@@ -20,6 +20,8 @@ public class DamageOnHit : MonoBehaviour
         {
             //deal damage if health is found
             otherHealth.TakeDamage(owner, damageDone);
+
+            GameManager.instance.manager.hit.PlayHit();
         }
 
         //destroy this object, regardless of success

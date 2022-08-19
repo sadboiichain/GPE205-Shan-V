@@ -72,11 +72,8 @@ public class PlayerController : Controller
         }
         //detect input for shooting
         if (Input.GetKey(shootKey))
-        {
-            
+        {            
             pawn.Shoot();
-
-
         }
 
     }

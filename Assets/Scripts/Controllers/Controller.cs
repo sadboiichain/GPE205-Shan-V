@@ -49,11 +49,17 @@ public abstract class Controller : MonoBehaviour
         public void AddToScore(float toAdd)
     {
         Score += toAdd;
-        Debug.Log("score added");
         if(pawn.scoreCount != null)
         {
-            Debug.Log("count found");
             pawn.scoreCount.UpdateScore(Score);
+            if(Score == 400)
+            {
+                GameManager.instance.ActivateWinnerScreen();
+            }
+            if(GameManager.instance.isMulti == true && Score == 500)
+            {
+                GameManager.instance.ActivateWinnerScreen();
+            }
         }
     }
     

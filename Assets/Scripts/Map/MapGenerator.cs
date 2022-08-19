@@ -20,16 +20,11 @@ public class MapGenerator : MonoBehaviour
     public bool isDaily;//for checking if the daily map is used
     public bool isRandom;
 
-    // Start is called before the first frame update
-    void Awake()
-    {
-        GenerateMap();
-    }
 
     // Update is called once per frame
-    void Update()
+    void Awake()
     {
-        
+    GenerateMap();
     }
 
     public GameObject RandomRoom()

@@ -51,7 +51,6 @@ public class Guardian : AIController
             case AIStates.Scan:
                 doScanState();
                 stateDelay = 10f;
-                Debug.Log(CanSee(target));
                 if(CanSee(target))
                 {
                     

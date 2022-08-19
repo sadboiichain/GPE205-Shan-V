@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
     //create the singleton gameManager
     public static GameManager instance;
 
+    public AudioManager manager;
+
     //list of playerControllers
     public List<PlayerController> playerControllerList;
     //list of controllers
@@ -30,6 +32,14 @@ public class GameManager : MonoBehaviour
 
     private Transform[] waypoints;
 
+    public GameObject[] multiPawn;
+    public GameObject[] multiCont;
+
+    public List<GameObject> spheres;
+
+    public bool isMulti;
+    public bool isP1Dead;
+    public bool isP2Dead;
 
 
     //Use Awake(); to do smething when the object is created, before Start(); can run
@@ -47,24 +57,34 @@ public class GameManager : MonoBehaviour
             //destroy this one to remove conflicts
             Destroy(gameObject);
         }
+
+
     }
 
     private void Start()
     {
         ActivateTitleScreen();
-
-        // spawn = FindObjectsOfType<PawnSpawnPoint>();
-        // SpawnPlayer();
-        // SpawnAI(AIPawnSpawn[0], AIControllerSpawn[0]);   //aggressive
-        // SpawnAI(AIPawnSpawn[1], AIControllerSpawn[1]);   //coward
-        // SpawnAI(AIPawnSpawn[2], AIControllerSpawn[2]);
-        // SpawnAI(AIPawnSpawn[3], AIControllerSpawn[3]);
-
     }
 
-    private void Update()
+    private void startSingle()
     {
-        ProcessInputs();
+        spawn = FindObjectsOfType<PawnSpawnPoint>();
+        SpawnPlayer();
+        SpawnAI(AIPawnSpawn[0], AIControllerSpawn[0]);   
+        SpawnAI(AIPawnSpawn[1], AIControllerSpawn[1]);   
+        SpawnAI(AIPawnSpawn[2], AIControllerSpawn[2]);
+        SpawnAI(AIPawnSpawn[3], AIControllerSpawn[3]);
+    }
+
+    public void startMulti()
+    {
+        spawn = FindObjectsOfType<PawnSpawnPoint>();
+        SpawnPlayerMulti(multiPawn[0], multiCont[0]);
+        SpawnPlayerMulti(multiPawn[1], multiCont[1]);
+        SpawnAI(AIPawnSpawn[0], AIControllerSpawn[0]);   
+        SpawnAI(AIPawnSpawn[1], AIControllerSpawn[1]);   
+        SpawnAI(AIPawnSpawn[2], AIControllerSpawn[2]);
+        SpawnAI(AIPawnSpawn[3], AIControllerSpawn[3]);
     }
 
 
@@ -76,6 +96,27 @@ public class GameManager : MonoBehaviour
 
         //spawn the pawn and connect it to the controller
         GameObject newPawnObj = Instantiate(tankPawnPrefab, playerSpawnTransform.position, playerSpawnTransform.rotation) as GameObject;
+
+       //get the playerController component and the pawn component
+       PlayerController newController = newPlayerObj.GetComponent<PlayerController>();
+       Pawn newPawn = newPawnObj.GetComponent<Pawn>();
+
+       //connect the new objects
+       newController.pawn = newPawn;
+       newPawn.control = newController;
+
+       newController.Score = 0;
+
+    }
+
+        public void SpawnPlayerMulti(GameObject playerPrefab, GameObject playerControlPrefab)
+    {
+        setPlayerSpawn();
+        //spawn playerController at origin with no rotation
+        GameObject newPlayerObj = Instantiate(playerControlPrefab, Vector3.zero, Quaternion.identity) as GameObject;
+
+        //spawn the pawn and connect it to the controller
+        GameObject newPawnObj = Instantiate(playerPrefab, playerSpawnTransform.position, playerSpawnTransform.rotation) as GameObject;
 
        //get the playerController component and the pawn component
        PlayerController newController = newPlayerObj.GetComponent<PlayerController>();
@@ -108,7 +149,7 @@ public class GameManager : MonoBehaviour
         LastSpawn = spawn[temp].GetComponent<Transform>();
     }
 
-    public void SpawnAI(GameObject AIPrefab, GameObject AIControlPrefab)//2 ideas: run this 4 times, once with each ai; or run a for/foreach loop to spawn each one without calling 4 times
+    public void SpawnAI(GameObject AIPrefab, GameObject AIControlPrefab)
     {
         //spawn AIcontroller at origin with no rotation
         GameObject newAICont = Instantiate(AIControlPrefab, Vector3.zero, Quaternion.identity) as GameObject;
@@ -161,6 +202,7 @@ public class GameManager : MonoBehaviour
     public GameObject CreditsStateObject;
     public GameObject GameplayStateObject;
     public GameObject GameOverStateObject;
+    public GameObject WinnerStateObject;
 
     private void DeactivateAllStates()
     {
@@ -170,6 +212,7 @@ public class GameManager : MonoBehaviour
         CreditsStateObject.SetActive(false);
         GameplayStateObject.SetActive(false);
         GameOverStateObject.SetActive(false);
+        WinnerStateObject.SetActive(false);
     }
 
     public void ActivateTitleScreen()
@@ -178,8 +221,7 @@ public class GameManager : MonoBehaviour
         DeactivateAllStates();
         //activate the title screen
         TitleScreenStateObject.SetActive(true);
-        //(fill in later with whatever the title screen does)
-        Debug.Log("title");
+
     }
 
     public void ActivateMainMenu()
@@ -188,8 +230,7 @@ public class GameManager : MonoBehaviour
         DeactivateAllStates();
         //activate the Main Menu
         MainMenuStateObject.SetActive(true);
-        //(fill in later with whatever the Main Menu does)
-        Debug.Log("menu");
+
     }
 
     public void ActivateOptionsMenu()
@@ -198,8 +239,7 @@ public class GameManager : MonoBehaviour
         DeactivateAllStates();
         //activate the options menu
         OptionsStateObject.SetActive(true);
-        //(fill in later with whatever the options menu does)
-        Debug.Log("options");
+
     }
 
     public void ActivateCreditsMenu()
@@ -208,8 +248,7 @@ public class GameManager : MonoBehaviour
         DeactivateAllStates();
         //activate the Credits screen
         CreditsStateObject.SetActive(true);
-        //(fill in later with whatever the credits does)
-        Debug.Log("credits");
+
     }
 
     public void ActivateGameplay()
@@ -218,8 +257,15 @@ public class GameManager : MonoBehaviour
         DeactivateAllStates();
         //activate the Gameplay
         GameplayStateObject.SetActive(true);
-        //(fill in later with whatever the gameplay state does)
-        Debug.Log("gamePlay");
+
+        if(isMulti)
+        {
+            startMulti();
+        }
+        else
+        {
+            startSingle();
+        }
     }
 
     public void ActivateGameOverScreen()
@@ -228,52 +274,57 @@ public class GameManager : MonoBehaviour
         DeactivateAllStates();
         //activate the Game Over
         GameOverStateObject.SetActive(true);
-        //(fill in later with whatever the game over does)
-        Debug.Log("gameOver");
+
+        manager.bgm.PlayMenu();
+
+        foreach (Pawn pawn in pawnList)
+        {
+            Destroy(pawn.gameObject);
+        }
+        foreach (AIController control in AIList)
+        {
+            Destroy(control);
+        }
+        foreach (GameObject power in powerList)
+        {
+            Destroy(power);
+        }
+        foreach (GameObject sphere in spheres)
+        {
+            Destroy(sphere);
+        }
     }
 
-    //keycodes to test the transitions between scenes, will delete later
-    public KeyCode title;
-    public KeyCode main;
-    public KeyCode options;
-    public KeyCode credits;
-    public KeyCode gamePlay;
-    public KeyCode gameOver;
-
-    public void ProcessInputs()
+    public void ActivateWinnerScreen()
     {
+        DeactivateAllStates();
+        WinnerStateObject.SetActive(true);
+        manager.bgm.PlayMenu();
 
-        // detecting input for title screen
-        if (Input.GetKey(title))
+        foreach (Pawn pawn in pawnList)
         {
-            ActivateTitleScreen();
+            Destroy(pawn.gameObject);
         }
-        // detecting input for main menu
-        if (Input.GetKey(main))
+        foreach (AIController control in AIList)
         {
-            ActivateMainMenu();
+            Destroy(control);
         }
-        // detecting input for options
-        if (Input.GetKey(options))
+        foreach (GameObject power in powerList)
         {
-            ActivateOptionsMenu();
+            Destroy(power);
         }
-        // detecting input for credits
-        if (Input.GetKey(credits))
+        foreach (GameObject sphere in spheres)
         {
-            ActivateCreditsMenu();
+            Destroy(sphere);
         }
-        // detecting input for gamePlay
-        if (Input.GetKey(gamePlay))
-        {
-            ActivateGameplay();
-        }
-        // detecting input for gameOver
-        if (Input.GetKey(gameOver))
-        {
-            ActivateGameOverScreen();
-        }
-
+    
     }
+
+
+    public void setMulti(bool toggle)
+    {
+        isMulti = toggle;
+    }
+
 
 }

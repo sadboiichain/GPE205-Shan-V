@@ -28,6 +28,7 @@ public class BallSpawner : MonoBehaviour
                 GameObject ball = Instantiate(Ball, transform.position , Quaternion.Euler(0,2,0));
                 current++;
                 nextEventTime = Time.time + timerDelay;
+                GameManager.instance.spheres.Add(ball);
 
             }
             

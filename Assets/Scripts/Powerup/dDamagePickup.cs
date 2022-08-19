@@ -20,7 +20,7 @@ public class dDamagePickup : MonoBehaviour
 
             GameManager.instance.powerList.Remove(gameObject);
 
-
+            GameManager.instance.manager.pick.PlayPickup();
             
         }
 

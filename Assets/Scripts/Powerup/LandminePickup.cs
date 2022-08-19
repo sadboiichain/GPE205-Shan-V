@@ -16,7 +16,7 @@ public class LandminePickup : MonoBehaviour
             powerupManager.Add(landmine);
             GameManager.instance.powerList.Remove(gameObject);
             Destroy(gameObject);
-            
+            GameManager.instance.manager.pick.PlayPickup();            
         }
 
     }

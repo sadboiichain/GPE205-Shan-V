@@ -75,6 +75,8 @@ public class TankPawn : Pawn
 
             //shooting makes noise
             noise.MakeNoise(25);
+            //fire sound
+            GameManager.instance.manager.fire.PlayFire();
         }
         
 

@@ -55,7 +55,10 @@ public class Knight : AIController
             case AIStates.Scan:
                 doScanState();
                 stateDelay = 5f;
-                Debug.Log(CanSee(target));
+                if(target == null)
+                {
+                    ChangeState(AIStates.Idle);
+                }
                 if(CanSee(target))
                 {
                     

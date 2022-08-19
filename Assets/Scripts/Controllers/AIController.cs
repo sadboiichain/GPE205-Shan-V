@@ -73,7 +73,12 @@ public class AIController : Controller
         base.Update();
     
         if(nextAIScan <= Time.time)
-        {   //check if the ai can hear target
+        {   
+            // if(target == null)
+            // {
+            //     TargetNearestTank();
+            // }
+            //check if the ai can hear target
             CanHear(target);
             //check if the ai can see the target
             CanSee(target);
@@ -138,7 +143,6 @@ public class AIController : Controller
             case AIStates.Scan:
                 doScanState();
                 stateDelay = 5f;
-                Debug.Log(CanSee(target));
                 if(CanSee(target))
                 {
                     
@@ -171,7 +175,10 @@ public class AIController : Controller
             {
                 if(GameManager.instance.playerControllerList.Count > 0)
                 {
-                    target = GameManager.instance.playerControllerList[0].pawn.gameObject;
+                    if(GameManager.instance.playerControllerList[0].pawn != null)
+                    {
+                        target = GameManager.instance.playerControllerList[0].pawn.gameObject;
+                    }
                 }
             }
         }
@@ -194,10 +201,10 @@ public class AIController : Controller
             //if this tank is closer that the closestTank
             if(Vector3.Distance(pawn.transform.position, tank.transform.position) <= closestTankDistance)
             {
-                if(Vector3.Distance(pawn.transform.position, tank.transform.position) !<= 2){
+
                     closestTank = tank;
                     closestTankDistance = Vector3.Distance(pawn.transform.position, closestTank.transform.position);
-                }
+
             }
         }
         //target the closest tank
@@ -281,6 +288,7 @@ public class AIController : Controller
         if(!IsDistanceLessThan(target, 2)){
             Seek(target);
         }
+
         
         //shoot
         Shoot();
@@ -382,6 +390,11 @@ public class AIController : Controller
     public bool CanHear(GameObject target)
     {
         //get the targets noiseMaker
+        if(target == null)
+        {
+            target = GameManager.instance.AIList[0].gameObject;
+            return false;
+        }
         NoiseMaker noise = target.GetComponent<NoiseMaker>();
         //if target does not have a noisemaker/can not make noise
         if(noise == null)
@@ -410,6 +423,10 @@ public class AIController : Controller
 
     public bool CanSee(GameObject target)
     {
+        if(target == null)
+        {
+            return false;
+        }
         //find the vector from the agent(tank?) to the target
         Vector3 agentToTargetVector = target.transform.position - pawn.transform.position;
         //creat a ray object to easily call later (vector for location of ray start, vector for ray angle)
@@ -428,7 +445,6 @@ public class AIController : Controller
             if(IsDistanceLessThan(target, pawn.maxViewDistance)){
                 if(hit.collider.gameObject == target)
                 {
-                    Debug.Log(hit.collider.gameObject.name);
                     return true;
                 }
                 else{

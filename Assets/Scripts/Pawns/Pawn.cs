@@ -89,6 +89,9 @@ public abstract class Pawn : MonoBehaviour
                 GameManager.instance.pawnList.Remove(this);
             }
         }
+        Destroy(control.gameObject);
+        //play the death audio
+        GameManager.instance.manager.death.Playdeath();
     }
 
     public void LifeLost()
