@@ -68,12 +68,20 @@ MonoBehaviour:
   multiCont:
   - {fileID: 526737662597408726, guid: c38b1897b3c15d842979a778dfd78bd2, type: 3}
   - {fileID: 3454557053215514030, guid: 5376841bd8127ab41bd46d3f3e12bdbd, type: 3}
+  spheres: []
   isMulti: 0
+  isP1Dead: 0
+  isP2Dead: 0
+  isKey1Collected: 0
+  isKey2Collected: 0
+  isKey3Collected: 0
   playerControllerPrefab: {fileID: 526737662597408726, guid: c38b1897b3c15d842979a778dfd78bd2, type: 3}
   tankPawnPrefab: {fileID: 2183872749772330598, guid: 49402e298dff0f74ba42d0a4da2a9a2f, type: 3}
+  MapGenerator: {fileID: 450423724353434151, guid: 321a4abfad173a14a8c277357cd4533d, type: 3}
   TitleScreenStateObject: {fileID: 0}
   MainMenuStateObject: {fileID: 0}
   OptionsStateObject: {fileID: 0}
   CreditsStateObject: {fileID: 0}
   GameplayStateObject: {fileID: 0}
   GameOverStateObject: {fileID: 0}
+  WinnerStateObject: {fileID: 0}

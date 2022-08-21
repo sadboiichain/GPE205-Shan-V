@@ -41,11 +41,18 @@ public class GameManager : MonoBehaviour
     public bool isP1Dead;
     public bool isP2Dead;
 
+    public bool isKey1Collected;
+    public bool isKey2Collected;
+    public bool isKey3Collected;
+
+    private GameObject MapGenerated;
 
     //Use Awake(); to do smething when the object is created, before Start(); can run
     private void Awake()
     {
+
         powerList = new List<GameObject>();
+        
         // check for other gameManagers
         if (instance == null)
         {
@@ -68,6 +75,7 @@ public class GameManager : MonoBehaviour
 
     private void startSingle()
     {
+        spawnMap();
         spawn = FindObjectsOfType<PawnSpawnPoint>();
         SpawnPlayer();
         SpawnAI(AIPawnSpawn[0], AIControllerSpawn[0]);   
@@ -78,6 +86,7 @@ public class GameManager : MonoBehaviour
 
     public void startMulti()
     {
+        spawnMap();
         spawn = FindObjectsOfType<PawnSpawnPoint>();
         SpawnPlayerMulti(multiPawn[0], multiCont[0]);
         SpawnPlayerMulti(multiPawn[1], multiCont[1]);
@@ -190,9 +199,16 @@ public class GameManager : MonoBehaviour
         
     }
 
+    public void spawnMap()
+    {
+        MapGenerated = Instantiate(MapGenerator, Vector3.zero, Quaternion.identity) as GameObject;
+    }
+
     //prefabs 
     public GameObject playerControllerPrefab;
     public GameObject tankPawnPrefab;
+
+    public GameObject MapGenerator;
 
 
     //Game States
@@ -293,6 +309,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(sphere);
         }
+        Destroy(MapGenerated);
     }
 
     public void ActivateWinnerScreen()
@@ -317,7 +334,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(sphere);
         }
-    
+        Destroy(MapGenerated);
     }
 
 
@@ -326,5 +343,22 @@ public class GameManager : MonoBehaviour
         isMulti = toggle;
     }
 
+    public void CollectKey1()
+    {
+        isKey1Collected = true;
+
+    }
+
+    public void CollectKey2()
+    {
+        isKey2Collected = true;
+
+    }
+
+    public void CollectKey3()
+    {
+        isKey3Collected = true;
+
+    }
 
 }

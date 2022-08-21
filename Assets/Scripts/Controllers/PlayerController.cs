@@ -11,6 +11,9 @@ public class PlayerController : Controller
     public KeyCode rotateClockwiseKey;
     public KeyCode rotateCounterClockwiseKey;
 
+    public KeyCode strafeRight;
+    public KeyCode strafeLeft;
+
     //keycode for shooting input
     public KeyCode shootKey;
 
@@ -74,6 +77,16 @@ public class PlayerController : Controller
         if (Input.GetKey(shootKey))
         {            
             pawn.Shoot();
+        }
+        if(Input.GetKey(strafeLeft))
+        {
+            
+            pawn.StrafeLeft();
+        }
+        if(Input.GetKey(strafeRight))
+        {
+            
+            pawn.StrafeRight();
         }
 
     }

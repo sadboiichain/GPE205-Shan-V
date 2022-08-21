@@ -43,6 +43,8 @@ public abstract class Pawn : MonoBehaviour
     //abstract functions so each class can adjust
     public abstract void MoveForward();
     public abstract void MoveBackward();
+    public abstract void StrafeRight();
+    public abstract void StrafeLeft();
     public abstract void RotateClockwise();
     public abstract void RotateCounterClockwise();
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -62,6 +63,14 @@ public class TankPawn : Pawn
     {
         mover.Rotate(-turnSpeed); 
         noise.MakeNoise(10);
+    }
+
+    public override void StrafeLeft()
+    {
+    }
+
+    public override void StrafeRight()
+    {
     }
 
     //set up the shooting function so the controller can call it

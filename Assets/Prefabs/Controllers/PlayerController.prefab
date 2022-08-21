@@ -50,4 +50,6 @@ MonoBehaviour:
   moveBackwardsKey: 115
   rotateClockwiseKey: 100
   rotateCounterClockwiseKey: 97
+  strafeRight: 275
+  strafeLeft: 276
   shootKey: 101

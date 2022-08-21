@@ -100,7 +100,7 @@ public class AIController : Controller
         {
             case AIStates.Idle:
                 //do work
-                DoIdleState();
+                // DoIdleState();
                 //check for transitions
                 if (CanHear(target))
                 {
